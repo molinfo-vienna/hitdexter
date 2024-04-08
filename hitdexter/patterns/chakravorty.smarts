@@ -1,0 +1,33 @@
+# Description: DOI: doi: 10.1177/2472555218768497
+# A mixure of available rule sets. The patterns in here are the ones that show highest
+# degree of promiscuity.
+
+
+O=Cc1nnsc1S(=O)[#6],
+[OH1]c1ccc([OH1])cc1,
+[$([#6][C;!H0]=[C;!H0]C1NCCc2ccccc12),$([#6][CH]=[CH]C1=NCCc2ccccc12)],
+c1ccc2cccc3c2c1[NH][CX4][NH]3,
+[CH1]#CC(=O)-[#6,#7,#8],
+[#6]S(=O)(=O)c1ncc([Cl,Br])c(n1)C([#7])=O,
+N#CC(C#N)=N[NH]c1ccccc1,
+[CH1,$(C(-[Cl,Br,I]))]1=[CH1,$(C(-[Cl,Br,I]))]C(=[O,N,S])[CH1,$(C(-[Cl,Br,I]))]=[CH1,$(C(-[Cl,Br,I]))]C1(=[O,N,S]),
+[CH]1C(=O)NC(=O)[CH]=1,
+O=[C,S]Oc1aaa([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O)O),$(C(=O)N)])aa([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O)O),$(C(=O)N)])1,
+[$([C;H1]),$(C(-[F,Cl,Br,I]))]1=[$([C;H1]),$(C(-[F,Cl,Br,I]))]C(=O)[N,O,S]C(=O)1,
+[O,S]=c1sc2cc([N,O])ccc2o1,
+[#7;R1]1[#6]([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C=O)])[#6]([F,Cl,Br,I])[#6][#6][#7]1,
+a1c([O,S;D1])c([O,S;D1])a[cH1][cH1]1,
+[$([#6,#16]n1sc(=O)c2ccccc12),$(O=c1s[n]c2ccc(cc12)),$(nsc=O),$(sn(-a)c(=O)c),$(s[nH,$(nA)]c(=O)c)],
+[#6][C;!H0]=[C;!H0]c1ccc(s1)N(~[OD1])~[OD1],
+[#6][C;!H0]=[C;!H0]c1ccc(o1)N(~[OD1])~[OD1],
+[$(O=C(Nc1ccccc1)c1ccccc1NS(=O)(=O)c1ccccc1),$(c1ccccc1S(=O)(=O)[NH]c2ccccc2C(=O)[NH]c3ccccc3)],
+[OD1]=c1[nD3][o,s]:[#6]=,:[#6]1,
+[O,N,S]=C1-[#6]=,:[#6]-C(=[O,N,S])-[#6]~[#6]1,
+[O,N,S]=[#6]1[#6]=,:[#6][#6](=[O,N,S])[#6]=,:[#6]1,
+n1c(=O)nc(=O)c2ncnnc12,
+S(=O)(=O)[NH]c1ccc([OH])cc1,
+[$([#6]n1ncac2c1nc(=O)n([#6])c2=O),$(O=c1nc(=O)nc2nn[c;!$(c=O)]nc12)],
+O1CCCCC1OC2CCC3CCCCC3C2,
+[$([$([#1,*])]N1C(=S)SC(=Ca)C1=O),$([nX3]1sccc1=O)],
+[#7]c1ccc2nc3ccccc3nc2c1,
+[OH]c1[cH]c2[cH][cH][cH][cH]c2[cH]c1C(=O)[NH]N=C

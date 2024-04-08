@@ -1,0 +1,7 @@
+name: hitdexter
+channels:
+- conda-forge
+- defaults
+dependencies:
+- python=3.8
+- rdkit=2020.09.1

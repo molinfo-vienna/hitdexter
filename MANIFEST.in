@@ -1,0 +1,3 @@
+recursive-include hitdexter/models *
+recursive-include hitdexter/data *
+recursive-include hitdexter/patterns *

@@ -1,0 +1,104 @@
+# Description: The original paper can be found here Glaxo publication
+# (http://pubs.acs.org/doi/abs/10.1021/ci990423o). The main purpose of the paper is to
+# publish guidelines which compounds can be pooled together in one batch when performing
+# high-throughput screening. The filterset comprises 55 SMARTS pattern, mainly short 
+# ones defining small chemical groups that should not be mixed together. The paper 
+# mentions three different filtersets. Nonetheless, only the "Hard Filter"-set is 
+# published as SMARTS set. The basic filterset is used to filter for salts, molecular 
+# weight range, compounds with atoms unusual for medicinal chemistry etc.. The filter 
+# set is not included. The set which is featured here is the "Hard Filters" set. The 
+# publication defines it as follwos:
+#
+# Hard Filters. A set of substructure search filters was used to remove compounds
+# containing inappropriate functional groups. These comprise filters for reactive
+# functional groups, unsuitable leads (i.e., compounds which would not be initially
+# followed up), and unsuitable natural products (i.e., derivatives of natural product
+# compounds known to interfere with common assay procedures).
+#
+# This definition of undesireable functional groups was specified further:
+#
+# The most obvious and prevalent form of unwanted chemical reactivity was considered to be
+# the reaction of electrophiles (E) and nucleophiles (N). Other possible broad classes of
+# chemical reactions (e.g., rearrangement, oxidation/reduction, addition/elimination,
+# radical) were felt to be less likely. This is because typical nucleophiles (e.g.,
+# amines) and electrophiles (e.g., esters) are quite prevalent in the types of molecules
+# that we have in our collections. With this in mind we separated these classes of
+# molecules so that when pooling was carried out, we did not mix them. In practice we
+# created four chemical classes: electrophiles (E), nucleophiles (N),
+# electrophile/nucleophiles (E/N), and inerts (I). The E/N classification was needed for
+# molecules which contain both an electrophile and a nucleophile; such molecules contain
+# the E or N in such a conformation, configuration, or state of reactivity that inter- or
+# intramolecular reactivity is not possible. Because we were not able to easily predict
+# which was the case, we decided that these molecules were best kept to a group on their
+# own. The inert classification contained all molecules that were not in either E, N, or
+# E/N.
+#
+# Weirdly, the authors of the SMARTS set stored in the ChEMBL database omitted the fourth
+# filter set that is given in the paper. The four sets published in the supporting
+# information are
+#
+# SMARTS for reactive functional groups (included - 31)
+# SMARTS for unsuitable leads (included - 16)
+# SMARTS for unsuitable natural products (included - 8)
+# SMARTS for Acids, Bases, Electrophiles and Nucleophiles (excluded - A23,B9,E13,N9). 
+#
+# Additionally, a SMARTS is given to cover the whole group in one expression for for each
+# class Acids, Bases, Electrophiles and Nucleophiles The fourth class should definitely be
+# included in the paper, for the poster it is too late now.
+
+
+[Br,Cl,I][CX4;CH,CH2],
+[S,C](=[O,S])[F,Br,Cl,I],
+O=CN=[N+]=[N-],
+COS(=O)O[C,c],
+COS(=O)(=O)[C,c],
+C(=O)OC(=O),
+OO,
+C(=O)Oc1c(F)c(F)c(F)c(F)c1(F),
+C(=O)Oc1ccc(N(=O)~[OX1])cc1,
+C(=O)Onnn,
+N=C=[S,O],
+OS(=O)(=O)C(F)(F)F,
+P(=S)(S)S,
+NP(=O)(N)N,
+cN=[N+]=[N-],
+C(=O)C[N+,n+],
+[N;R0][N;R0]C(=O),
+[C+,Cl+,I+,P+,S+],
+C=P,
+[Cl]C([C&R0])=N,
+[N&D2](=O),
+[P,S][Cl,Br,F,I],
+N=C=N,
+[N+]#[C-],
+C(=O)N(C(=O))OC(=O),
+N#CC[OH],
+N#CC(=O),
+S(=O)(=O)C#N,
+P(OCC)(OCC)(=O)C#N,
+[N;R0]=[N;R0]C#N,
+[N;R0]=[N;R0]CC=O,
+[CD2;R0][CD2;R0][CD2;R0][CD2;R0][CD2;R0][CD2;R0][CD2;R0],
+[C,S,P](=O)[OH].[C,S,P](=O)[OH].[C,S,P](=O)[OH].[C,S,P](=O)[OH],
+[O;R1][C;R1][C;R1][O;R1][C;R1][C;R1][O;R1],
+SS,
+[SH],
+C1[O,S,N]C1,
+c([OH])c([OH])c([OH]),
+c([OH])c([OH])cc([OH]),
+N=NC(=S)N,
+SC#N,
+cC[N+],
+C[O,S;R0][C;R0](=S),
+N[CH2]C#N,
+C1(=O)OCC1,
+P(=O)([OH])OP(=O)[OH],
+N1CCC1=O,
+O=C1[#6]~[#6]C(=O)[#6]~[#6]1,
+C=CC=CC=CC=C,
+O1CCCCC1OC2CCC3CCCCC3C2,
+O=C1NCC2CCCCC21,
+O=C1CCCC(N1)=O,
+O1CCCCC1C2CCCO2,
+[OH]c1cc([OH])cc2=[O+]C(=C([OH])Cc21)c3cc([OH])c([OH])cc3,
+C12OCCC(O1)CC2

@@ -1,0 +1,440 @@
+module:
+  rank: 6
+  name: hitdexter
+  visible_name: Hit Dexter 3
+  logo: logo.png
+  logo_title: Hit Dexter 3
+  logo_caption: Prediction of frequent hitters
+  example_smiles: C(=NN=c1ccc2ccccc2[nH]1)c1ccccn1
+
+  title: How Likely is my Compound a Frequent Hitter?
+  description: |
+    Hit Dexter is a machine learning approach to estimate how likely a small molecule is
+    to trigger a positive response in biochemical and biological assays. The models were
+    derived from a dataset of 250,000 compounds with experimentally determined activity
+    for at least 100 different protein groups.
+  citation: |
+    Stork, C.; Mathai, N.; Kirchmair, J. Computational prediction of frequent hitters in
+    target-based and cell-based assays. _Artificial Intelligence in the Life Sciences_
+    **2021**.  
+    [doi: 10.1016/j.ailsci.2021.100007](https://doi.org/10.1016/j.ailsci.2021.100007)
+
+  contact:
+    - name: Conrad Stork
+      email: stork@zbh.uni-hamburg.de
+    - name: Johannes Kirchmair
+      email: johannes.kirchmair@univie.ac.at
+
+  about: |
+    ## Documentation of Hit Dexter 3 (coming soon)
+
+    ## Hit Dexter and Hit Dexter 2.0 versions
+
+    As the workflow for data preparation was updated and improved during Hit Dexter 2.0,
+    only these data sets are used. This means Hit Dexter as it was in the very beginning
+    does not exist anymore.
+
+    Further the models that are accessible via the web server are not the models that
+    were published in the Hit Dexter 2.0 paper, but were built with the same procedure
+    described in the paper but with updated versions of
+    scikit-learn[\[1\]](#Reference) (now: 0.20.1; old: 0.19.1), imbalance
+    learn[\[2\]](#Reference) (now: 0.4.3; old: 0.3.1) and RDKit[\[3\]](#Reference) (now:
+    2018.09.1; old: 2017.09.3).
+
+    ### Introduction
+
+    Hit Dexter 2.0 is a freely available web service for assessing the risk of small
+    molecules to cause false-positive readouts in biochemical assays. Predictions
+    obtained with Hit Dexter 2.0 may serve as a valuable tool for decision support and
+    compound deprioritization but is not intended for use as a hard filter for
+    discarding compounds. For a detailed discussion of the scope and limitations of Hit
+    Dexter 2.0, see our recent publication.[\[4\]](#Reference)
+
+    Hit Dexter 2.0 features a number of different models and approaches for compound
+    vetting:
+
+    * Four machine learning models (classifiers) to identify
+      * compounds which are likely to show moderate or high hit rates in primary screening assays (PSA) and are hence regarded as potentially promiscuous compounds
+      * compounds which are likely to show high hit rates in primary screening assays (PSA) and are hence regarded as potentially highly promiscuous compounds
+      * compounds which are likely to show moderate or high hit rates in confirmatory dose-response assays (CDRA) and are hence regarded as potentially promiscuous compounds
+      * compounds which are likely to show high hit rates in confirmatory dose-response assays (CDRA) and are hence regarded as potentially highly promiscuous compounds
+    * Similarity-based approaches to measure the distance to the
+      * closest known aggregate-forming compound
+      * closest known dark chemical matter compound (definitions provided below)
+    * Rule-based approaches to flag
+      * compounds based on scaffolds which have been linked to pan-assay interference (PAINS)
+      * undesirable molecules, identified based on substructures
+
+    The definitions of the individual promiscuity classes are summarized in Table 1. For
+    example, compounds are classified as “highly promiscuous” if their active-to-tested
+    ratio (ATR) is greater than 5.4% for PSAs and greater than 10% for CDRAs.
+
+    The ATR defines the ratio between the number of protein clusters for which a
+    compound was measured as active on at least one protein of that cluster vs. the
+    total number of protein clusters a compound was measured on.
+
+    Each of the classifiers was trained on approximately 250k compounds (Table 1) which
+    have been measured for activity on at least 50 distinct proteins (i.e. proteins with
+    distinct sequence identity as determined by a protein sequence clustering approach).
+    Morgan2 fingerprints served as descriptors.
+
+    Table 1. Composition of the Data Sets and Definition of Thresholds for Class Labeling.
+
+    | Assigned promiscuity class                               | # unique compounds in data set | # unique compounds in PSA50 | # unique compounds in CDRA50 | Threshold definitiona       | Threshold PSA50b | Threshold CDRA50b |
+    |----------------------------------------------------------|--------------------------------|-----------------------------|------------------------------|-----------------------------|------------------|-------------------|
+    | Non-promiscuous (NP)                                     | Training set:                  | 222 272                     | 211 264                      | ATR &lt; ATRmean            | 0.008            | 0.015             |
+    | Promiscuous (P)                                          | Training set:                  | 26 117                      | 30 478                       | ATR &gt; ATRmean + 1σc      | 0.024            | 0.043             |
+    | Highly promiscuous(HP) - a subset of compounds labeled P | Training set:                  | 5 956                       | 5 609                        | ATR &gt; ATRmean + 3σc      | 0.054            | 0.100             |
+
+
+    a Derived as part of our previous work.[\[5\]](#Reference) Compounds with ATRs between ATRmean and ATRmean + 1σ were not assigned a promiscuity label and removed from all data sets.
+    b ATR threshold values calculated for the individual data sets according to the ATR threshold definition.
+    c Standard deviation.
+
+    ### Similarity-based approaches to measure the distance to known aggregators and dark chemical matter
+
+    Hit Dexter 2.0 reports the distance to the closest known aggregate-forming compound
+    (aggregator) collected in a large data set that was published in
+    2015.[\[6\]](#Reference) Hit Dexter 2.0 retrieves similarity values directly from
+    the Aggregator Advisor web service.[\[7\]](#Reference) The reported similarity is a
+    Tanimoto coefficient based on the standard axonpath fingerprint in JChemBase
+    (ChemAxon, Chemaxon.com). If the Aggregator Advisor web service cannot be reached at
+    this time, Hit Dexter 2.0 will not report predictions for this calculation (the
+    value reported will be “-1”or “null”).
+
+    Hit Dexter 2.0 also reports the distance of the compound(s) of interest to the
+    closest of 140k compounds known as dark chemical matter.[\[8\]](#Reference) Dark
+    chemical matter describes compounds which have been tested in at least one hundred
+    different biochemical assays and have never shown activity.
+
+    ### Rule-based approaches to flag undesirable molecules
+
+    As additional information the following rule sets are provided:
+
+    *   The “hard filters” rule set developed at Glaxo Wellcome,[\[9\]](#Reference) consisting of 55 patterns of undesired functional groups.
+    *   A rule set developed at the University of Dundee,[\[10\]](#Reference) consisting of 105 patterns of unwanted functional groups and substructures that likely cause interference with HTS assays.
+    *   The “HTS deck filters” rule set developed at Bristol-Meyers Squibb,[\[11\]](#Reference) consisting of 180 patterns of unwanted functional groups derived from intuition and experience.
+    *   The SureChEMBL rule set of ToxAlert,[\[12\]](#Reference) consisting of 166 patterns of toxicophores.
+    *   The “excluded functionality filters” rule set of the NIH Molecular Libraries Small Molecule Repository,[\[13\]](#Reference) consisting of 116 patterns for removing unwanted functional groups.
+    *   The “Lint” rule set developed at Pfizer,[\[14\]](#Reference) consisting 57 patterns of problematic functional groups during drug optimization.
+    *   The PAINS set of substructures linked to assay interference,[\[15\]](#Reference) consisting of 480 patterns. Note that the original PAINS patterns were encoded by Sybyl line notation[\[15\]](#Reference) whereas the Hit Dexter 2.0 web service utilizes SMARTS patterns in combination with the substructure search implemented in RDKit.[\[3\]](#Reference) This may lead to differing results in some cases.
+    *   A set of 28 substructures derived from undesirable compounds. This is a subset of rules recently introduced by investigators from GlaxoSmithKline. The 28 substructures are listed in Table S2 of ref [\[16\]](#Reference) (value “remove” in column “GSK Recommendation”).
+
+    Patterns that cannot be parsed by RDKit were corrected according to Table 2.
+
+    Table 2: Corrected SMARTS patterns.
+
+    | Pattern source | Pattern from the rule                                                                                                                                                      | Corrected pattern                                                                                                                                                       | Alternative correction (not used)                                                                                |
+    |----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+    | BMS            | [F,Cl,Br,I,$(O(S(=O)(=O)))]-[CH,CH2;!$(CF2)]-[N,n]                                                                                                                         | [F,Cl,Br,I,$(O(S(=O)(=O)))]-[CH,CH2;!$(C(F)F)]-[N,n]                                                                                                                    | [F,Cl,Br,I,$(O(S(=O)(=O)))]-[CH,CH2;!$(CF)]-[N,n]                                                                |
+    | BMS            | [N,n,O,S;!$(S(=O)(=O))]-[CH,CH2;!$(CF2)][F,Cl,Br,I,$(O(S(=O)(=O)))]                                                                                                        | [N,n,O,S;!$(S(=O)(=O))]-[CH,CH2;!$(C(F)F)][F,Cl,Br,I,$(O(S(=O)(=O)))]                                                                                                   | [N,n,O,S;!$(S(=O)(=O))]-[CH,CH2;!$(CF)][F,Cl,Br,I,$(O(S(=O)(=O)))]                                               |
+    | BMS            | [CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0][CH2,$(CF2);R0]                                                   | [CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0][CH2,$(C(F)F);R0]                                | [CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0][CH2,$(CF);R0] |
+    | BMS            | [[CH;!R];!$(C-N)]=C([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O))])([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O))])  | [CH;!R;!$(C-N)]=C([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O))])([$(S(=O)(=O)),$(C(F)(F)(F)),$(C#N),$(N(=O)(=O)),$([N+](=O)[O-]),$(C(=O))]) | -                                                                                                                |
+    | MLSMR          | [N,C,S,O]-&amp;!@[N,C,S,O]&amp;!@[N,C,S,O]&amp;!@[N,C,S,O]&amp;!@[N,C,S,O]&amp;!@[N,C,S,O]&amp;!@[N,C,S,O]                                                                 | [N,C,S,O]-&amp;!@[N,C,S,O]-&amp;!@[N,C,S,O]-&amp;!@[N,C,S,O]-&amp;!@[N,C,S,O]-&amp;!@[N,C,S,O]-&amp;!@[N,C,S,O]                                                         | [N,C,S,O]-&amp;!@[N,C,S,O]!@[N,C,S,O]!@[N,C,S,O]!@[N,C,S,O]!@[N,C,S,O]!@[N,C,S,O]                                |
+    | MLSMR          | ac-*=&amp;!@*-&amp;!@C(=O)&amp;!@ca                                                                                                                                        | ac-*=&amp;!@*-&amp;!@C(=O)-&amp;!@ca                                                                                                                                    | -                                                                                                                |
+    | MLSMR          | [#6,#7]&amp;!@[#6](=&amp;!@[CH])&amp;!@C(=O)-&amp;!@[C,N,O,S]                                                                                                              | [#6,#7]-&amp;!@[#6](=&amp;!@[CH])-&amp;!@C(=O)-&amp;!@[C,N,O,S]                                                                                                         | -                                                                                                                |
+    | MLSMR          | *-C(=O)-&amp;!@[NH]-C&amp;!@C(=O)-&amp;!@[NH]-*                                                                                                                            | *-C(=O)-&amp;!@[NH]-C-&amp;!@C(=O)-&amp;!@[NH]-*                                                                                                                        | -                                                                                                                |
+    | MLSMR          | ([#6]OP(=O)(*)O[#6].[#6]OP(=O)(*)O[#6].[#6]OP(=O)(*)O[#6])                                                                                                                 | [#6]OP(=O)(*)O[#6]                                                                                                                                                      | -                                                                                                                |
+    | MLSMR          | c12cccc(C(=O)N(&amp;!@C)C(=O)3)c2c3ccc1                                                                                                                                    | c12cccc(C(=O)N(-&amp;!@C)C(=O)3)c2c3ccc1                                                                                                                                | -                                                                                                                |
+
+    ### Usage
+
+    #### Data preparation and upload
+
+    Molecular structures are loaded onto the Hit Dexter 2.0 web service either by directly drawing a molecule with the JSME editor,[\[17\]](#Reference) by pasting a SMILES into the field “Enter SMILES”, or by uploading a text file containing a list of SMILES. Hit Dexter 2.0 runs a thorough data preparation protocol to standardize the structural input. Therefore, chemical structures do not need to be preprocessed by the user with respect to hydrogen annotation, aromatization, protonation, tautomerism and stereochemistry. Salts are also recognized, and the minor components removed prior to calculations. For further information, see the original publication of Hit Dexter 2.0 ([www.dx.doi.org/10.1021/acs.jcim.8b00677](http://www.dx.doi.org/10.1021/acs.jcim.8b00677)).
+
+    Lists of SMILES should be formatted as shown in the following examples:
+
+    Example 1: One SMILES per row with no additional data
+
+    CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC
+
+    C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O
+
+    C1=CC(=C(C=C1O)O)C(=O)C=CC2=CC(=C(C(=C2)O)O)O
+
+    Example 2: One SMILES per row with additional data (only space is allowed at the moment)
+
+    CCOC(=O)N1CCN(CC1)C2=C(C(=O)C2=O)N3CCN(CC3)C4=CC=C(C=C4)OC PhantomPAINSexample
+
+    C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O exampleAggegator
+
+    C1=CC(=C(C=C1O)O)C(=O)C=CC2=CC(=C(C(=C2)O)O)O exampleReactive
+
+    #### Running the calculations
+
+    Calculations are started by clicking the “Submit” button. A new web page will load
+    which reports on the progress of calculations and displays a web link that allows
+    users to return and inspect the results ones all calculations have been completed.
+
+    #### Analyzing the results
+
+    The results page mainly consists of a table (heat map) which presents the
+    predictions for the query molecules and models.
+
+    Users not familiar with the methods and rule-sets employed by Hit Dexter are advised
+    to closely observe the assessment provided in the “Comments” field. “Comments”
+    summarizes the outcomes of all individual models of Hit Dexter 2.0 and also gives
+    indications of the confidence of individual predictions (based on the similarity of
+    the query compound(s) to the nearest neighbors in the training sets).
+
+    The following color gradients are used in the table:
+
+    *   Molecular weight: < 200 Da red; 400 Da green; > 600 Da red
+    *   logP: <1 red; 2 green; >3 red
+    *   Probability reported by the individual classifiers: 0.00 green; 1.00 red
+    *   Distance (Tanimoto similarity of Morgan2 fingerprints) to the most similar molecule present in the training data: 0.00 green; 1.00 red
+    *   Number of patterns matched for the individual rule sets: 0 green; >3 red
+
+    The table rows can be sorted by clicking on the sorter symbols located within the
+    header cells of the respective columns.
+
+    Providing exactly the same SMILES more than once results in deletion of the
+    duplicates. If names are provided only the name of the last entry (with respect to
+    the input file) is kept.
+
+    ### Exporting results
+
+    All results can be downloaded as a CSV file by clicking the “Download (.csv)” button
+    on the results page.
+
+    ### Analyzing error messages and warnings
+
+    For any structural input that cannot be successfully processed and standardized by
+    Hit Dexter 2.0, an error code is reported. A description of the individual error
+    codes is provided in Table 3. In case of questions, use the feedback and support
+    page of our web service to get in touch with us
+    ([https://nerdd.univie.ac.at/feedback\_support/](https://nerdd.univie.ac.at/feedback_support/)).
+
+    If the Aggregator Advisor web service cannot be reached at this time, Hit Dexter 2.0
+    will not report predictions for this calculation (the value reported will be “-1”or
+    “null”).
+
+    Table 3: Error Messages and Warnings.
+
+    ### License
+
+    The Hit Dexter 2.0 software package is published with the GNU GENERAL PUBLIC LICENSE
+    Version 3.
+
+    ### Contact, Suggestions and Bug Report
+
+    Conrad Stork: [stork@zbh.uni-hamburg.de](mailto:stork@zbh.uni-hamburg.de)
+
+    Johannes Kirchmair: [kirchmair@zbh.uni-hamburg.de](mailto:kirchmait@zbh.uni-hamburg.de)
+
+    ### Funding
+
+    CS and JK are supported by the Deutsche Forschungsgemeinschaft (DFG, German Research
+    Foundation) - project number KI 2085/1-1. JK is also supported by the Bergen
+    Research Foundation (BFS) - grant no. BFS2017TMT01. YC is supported by the China
+    Scholarship Council (201606010345). MS is supported by the Ministry of Education of
+    the Czech Republic - project numbers NPU I-LO1220 and LM2015063.
+
+    ### References
+
+    \[1\]        Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V. and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P. and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E., J. Mach. Learn. Res. 2011, 12, 2825-2830.
+
+    \[2\]        Guillaume Lemaitre, Fernando Nogueira, Christos K. Aridas, J. Mach. Learn. Res. 2017, 18, 1-5.
+
+    \[3\]        RDKit: Open-Source Cheminformatics Software: http://www.rdkit.org.
+
+    \[4\]        C. Stork, Y. Chen, M. Šícho, J. Kirchmair, J. Chem. Inf. Model. 2019, 59, 1030-1043.
+
+    \[5\]        C. Stork, J. Wagner, N.-O. Friedrich, C. de Bruyn Kops, M. Šícho, J. Kirchmair, ChemMedChem 2018, 13, 564-571.
+
+    \[6\]        J. J. Irwin, D. Duan, H. Torosyan, A. K. Doak, K. T. Ziebart, T. Sterling, G. Tumanian, B. K. Shoichet, J. Med. Chem. 2015, 58, 7076-7087.
+
+    \[7\]        “Aggregator Advisor / Shoichet Laboratory @ UCSF,” can be found under [http://advisor.bkslab.org/](http://advisor.bkslab.org/).
+
+    \[8\]        A. M. Wassermann, E. Lounkine, D. Hoepfner, G. Le Goff, F. J. King, C. Studer, J. M. Peltier, M. L. Grippo, V. Prindle, J. Tao, et al., Nat. Chem. Biol. 2015, 11, 958-966.
+
+    \[9\]        M. Hann, B. Hudson, X. Lewell, R. Lifely, L. Miller, N. Ramsden, J. Chem. Inf. Comput. Sci. 1999, 39, 897-902.
+
+    \[10\]        R. Brenk, A. Schipani, D. James, A. Krasowski, I. H. Gilbert, J. Frearson, P. G. Wyatt, ChemMedChem 2008, 3, 435-444.
+
+    \[11\]        B. C. Pearce, M. J. Sofia, A. C. Good, D. M. Drexler, D. A. Stock, J. Chem. Inf. Model. 2006, 46, 1060-1068.
+
+    \[12\]        I. Sushko, E. Salmina, V. A. Potemkin, G. Poda, I. V. Tetko, J. Chem. Inf. Model. 2012, 52, 2310-2316.
+
+    \[13\]        “NIH Molecular Libraries Small Molecule Repository,” can be found under [https://grants.nih.gov/grants/guide/notice-files/not-rm-07-005.html](https://grants.nih.gov/grants/guide/notice-files/not-rm-07-005.html).
+
+    \[14\]        J. Blake, McCalls 2005, 1, 649-655.
+
+    \[15\]        J. B. Baell, G. A. Holloway, J. Med. Chem. 2010, 53, 2719-2740.
+
+    \[16\]        S. J. Chakravorty, J. Chan, M. N. Greenwood, I. Popa-Burke, K. S. Remlinger, S. D. Pickett, D. V. S. Green, M. C. Fillmore, T. W. Dean, J. I. Luengo, et al., SLAS Discov 2018, 23, 532-544.
+
+    \[17\]        B. Bienfait, P. Ertl, J. Cheminform. 2013, 5, 24.
+
+  result_properties:
+    - name: assessment
+      verbose_name: Assessment
+      type: text
+      sortable: True
+      markdown: True
+    - name: mol_weight
+      verbose_name: Molecular weight (Da)
+      type: float
+      palette: unknownPositiveNegative
+      sortable: True
+    - name: clogP
+      verbose_name: clogP
+      type: float
+      palette: negativeToPositive
+      sortable: True
+
+    - name: prediction_1
+      verbose_name: Moderate or high promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
+    - name: distance_to_neighbor_1
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
+    - name: prediction_2
+      verbose_name: High promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
+    - name: distance_to_neighbor_2
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
+
+    - name: prediction_3
+      verbose_name: Moderate or high promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
+    - name: distance_to_neighbor_3
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
+    - name: prediction_4
+      verbose_name: High promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
+    - name: distance_to_neighbor_4
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
+
+    - name: prediction_5
+      verbose_name: Moderate or high promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
+    - name: distance_to_neighbor_5
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
+    - name: prediction_6
+      verbose_name: High promiscuity
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
+    - name: distance_to_neighbor_6
+      verbose_name: Distance to closest training instance
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
+
+    - name: distance_aggregator
+      verbose_name: Distance to closest aggregator
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      visible: False
+      group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
+    - name: distance_dcm
+      verbose_name: Distance to closest DCM
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      visible: False
+      group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
+    - name: distance_bad_actor
+      verbose_name: Distance to closest known bad actor
+      type: float
+      palette: positiveToNegative
+      sortable: True
+      visible: False
+      group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
+
+    - name: patterns_pains
+      verbose_name: PAINS (480 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_bms
+      verbose_name: BMS (180 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_dundee
+      verbose_name: Dundee (105 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_glaxo
+      verbose_name: Glaxo (55 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_pfizer
+      verbose_name: Pfizer (57 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_mlsmr
+      verbose_name: MLSMR (116 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_surechembl
+      verbose_name: SureChEMBL (166 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+    - name: patterns_chakravorty
+      verbose_name: Chakravorty (28 patterns)
+      type: float
+      palette: nuisancePatterns
+      sortable: True
+      visible: False
+      group: "Number of undesired functional groups present in a compound"
+      
