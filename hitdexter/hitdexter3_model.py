@@ -39,14 +39,14 @@ def load_ml_nn_models(labels):
         ml_data.append(
             load(
                 files("hitdexter").joinpath(
-                    "models/ml_models/" + labels[i] + "_MultiCore.pkl"
+                    f"models/hitdexter3/ml_models/{labels[i]}_MultiCore.pkl"
                 )
             )
         )
         nn_data.append(
             FPSim2Engine(
                 str(
-                    files("hitdexter").joinpath("models/nn_models/" + labels[i] + ".h5")
+                    files("hitdexter").joinpath(f"models/hitdexter3/nn_models/{labels[i]}.h5")
                 )
             )
         )
