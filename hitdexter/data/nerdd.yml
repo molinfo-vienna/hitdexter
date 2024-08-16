@@ -1,8 +1,8 @@
 module:
   rank: 6
-  name: hitdexter
+  name: hitdexter3
   visible_name: Hit Dexter 3
-  logo: logo.png
+  logo: !image logo.png
   logo_title: Hit Dexter 3
   logo_caption: Prediction of frequent hitters
   example_smiles: C(=NN=c1ccc2ccccc2[nH]1)c1ccccn1
@@ -13,6 +13,15 @@ module:
     to trigger a positive response in biochemical and biological assays. The models were
     derived from a dataset of 250,000 compounds with experimentally determined activity
     for at least 100 different protein groups.
+
+  partners:
+    - name: University of Vienna
+      logo: !image logo_vienna.gif
+      url: https://www.univie.ac.at/en
+    - name: University of Hamburg
+      logo: !image logo_hamburg.gif
+      url: https://www.uni-hamburg.de/en
+  
   citation: |
     Stork, C.; Mathai, N.; Kirchmair, J. Computational prediction of frequent hitters in
     target-based and cell-based assays. _Artificial Intelligence in the Life Sciences_
