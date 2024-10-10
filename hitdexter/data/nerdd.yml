@@ -287,7 +287,7 @@ module:
       type: float
       palette: unknownPositiveNegative
       sortable: True
-    - name: clogP
+    - name: mol_clogp
       verbose_name: clogP
       type: float
       palette: negativeToPositive
@@ -390,56 +390,56 @@ module:
       visible: False
       group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
 
-    - name: patterns_pains
+    - name: patterns_1
       verbose_name: PAINS (480 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_bms
+    - name: patterns_2
       verbose_name: BMS (180 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_dundee
+    - name: patterns_3
       verbose_name: Dundee (105 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_glaxo
+    - name: patterns_4
       verbose_name: Glaxo (55 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_pfizer
+    - name: patterns_5
       verbose_name: Pfizer (57 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_mlsmr
+    - name: patterns_6
       verbose_name: MLSMR (116 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_surechembl
+    - name: patterns_7
       verbose_name: SureChEMBL (166 patterns)
       type: float
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_chakravorty
+    - name: patterns_8
       verbose_name: Chakravorty (28 patterns)
       type: float
       palette: nuisancePatterns

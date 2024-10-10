@@ -1,4 +1,3 @@
-import logging
 from typing import List, Tuple
 
 # disable rdkit logging messages
@@ -8,14 +7,15 @@ from rdkit import RDLogger
 logger = RDLogger.logger()
 logger.setLevel(RDLogger.ERROR)
 
-from nerdd_module.preprocessing import Problem, Step
+from nerdd_module import Problem
+from nerdd_module.preprocessing import PreprocessingStep
 from rdkit.Chem import KekulizeException, Mol, SanitizeMol
 from rdkit.Chem.MolStandardize import rdMolStandardize
 
 __all__ = ["CanonicalizeTautomer"]
 
 
-class CanonicalizeTautomer(Step):
+class CanonicalizeTautomer(PreprocessingStep):
     """Canonalizes the molecules by removing stereochemistry and
     enumerating tautomers.
     """
@@ -25,7 +25,7 @@ class CanonicalizeTautomer(Step):
         self.remove_stereo = remove_stereo
         self.remove_invalid_molecules = remove_invalid_molecules
 
-    def _run(self, mol: Mol) -> Tuple[Mol, List[Problem]]:
+    def _preprocess(self, mol: Mol) -> Tuple[Mol, List[Problem]]:
         errors = []
 
         # generating a canonical tautomer might ignore stereochemistry
