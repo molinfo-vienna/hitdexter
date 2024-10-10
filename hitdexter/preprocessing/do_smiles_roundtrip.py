@@ -1,15 +1,16 @@
 from typing import List, Tuple
 
-from nerdd_module.preprocessing import Step
+from nerdd_module import Problem
+from nerdd_module.preprocessing import PreprocessingStep
 from rdkit.Chem import CanonSmiles, Mol, MolFromSmiles, MolToSmiles
 
 
-class DoSmilesRoundtrip(Step):
+class DoSmilesRoundtrip(PreprocessingStep):
     def __init__(self, remove_stereo: bool = True):
         super().__init__()
         self.remove_stereo = remove_stereo
 
-    def _run(self, mol: Mol) -> Tuple[Mol, List[str]]:
+    def _preprocess(self, mol: Mol) -> Tuple[Mol, List[Problem]]:
         errors = []
         smiles = MolToSmiles(mol, True)
         if self.remove_stereo:
