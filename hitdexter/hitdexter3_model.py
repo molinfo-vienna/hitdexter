@@ -1,18 +1,17 @@
 import sys
-from typing import List
+from typing import Iterator, List
 
 import numpy as np
-import pandas as pd
 from FPSim2 import FPSim2Engine
 from joblib import load
-from nerdd_module import AbstractModel
+from nerdd_module import SimpleModel
 from rdkit.Chem import AllChem, Mol, MolToSmiles
 from rdkit.Chem.Crippen import MolLogP
 from rdkit.Chem.Descriptors import MolWt
 from rdkit.Chem.rdmolops import AddHs
 
 from .patterns import hitdexter_patterns, match_smarts_patterns_to_mol
-from .preprocessing import HitdexterPreprocessingPipeline
+from .preprocessing import preprocessing_steps
 
 if sys.version_info < (3, 9):
     from importlib_resources import files
@@ -46,7 +45,9 @@ def load_ml_nn_models(labels):
         nn_data.append(
             FPSim2Engine(
                 str(
-                    files("hitdexter").joinpath(f"models/hitdexter3/nn_models/{labels[i]}.h5")
+                    files("hitdexter").joinpath(
+                        f"models/hitdexter3/nn_models/{labels[i]}.h5"
+                    )
                 )
             )
         )
@@ -244,7 +245,7 @@ def get_confidence_for_similarity(similarity):
 
 def predict(
     mols,
-):
+) -> Iterator[dict]:
     # calculate features
     mols_h = [get_mol_with_added_hs(m) for m in mols]
     morgans = [get_morgan2_fp(m) for m in mols]
@@ -263,29 +264,31 @@ def predict(
         produce_hitdexter3_comment((entry, entry)) for entry in zip(*mlm_predictions)
     ]
 
-    results = pd.DataFrame(
-        dict(
-            assessment=comments,
-            mol_weight=mol_wts,
-            mol_clogp=mol_logps,
-        )
-    )
+    for i, assessment, mol_weight, mol_clogp in zip(range(len(mols)), comments, mol_wts, mol_logps):
+        predictions = {
+            f"prediction_{j+1}" : mlm_predictions[j][i] for j in range(len(labels))
+        }
+        neighbors = {
+            f"distance_to_neighbor_{j+1}" : nnm_predictions[j][i] for j in range(len(labels))
+        }
+        patterns = {
+            f"patterns_{j+1}" : [patterns[j] if patterns else None for patterns in pattern_list] for j in range(len(hitdexter_patterns))
+        }
+        yield {
+            "assessment": assessment,
+            "mol_weight": mol_weight,
+            "mol_clogp": mol_clogp,
+            **predictions,
+            **neighbors,
+            **patterns,
+        }
 
-    for i in range(len(labels)):
-        results[f"prediction_{i+1}"] = mlm_predictions[i]
-        results[f"neighbor_{i+1}"] = nnm_predictions[i]
 
-    for i in range(len(hitdexter_patterns)):
-        results[f"pattern_{i+1}"] = [j[i] if j else None for j in pattern_list]
-
-    return results
-
-
-class HitDexter3Model(AbstractModel):
+class HitDexter3Model(SimpleModel):
     def __init__(self):
         super().__init__(
-            preprocessing_pipeline=HitdexterPreprocessingPipeline(),
+            preprocessing_steps=preprocessing_steps,
         )
 
-    def _predict_mols(self, mols: List[Mol]) -> pd.DataFrame:
-        return predict(mols)
+    def _predict_mols(self, mols: List[Mol]) -> List[dict]:
+        return list(predict(mols))
