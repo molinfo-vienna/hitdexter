@@ -1,8 +1,8 @@
 from nerdd_module.preprocessing import (
-                                        FilterByElement,
-                                        FilterByWeight,
-                                        GetParentMolWithCsp,
-                                        StandardizeWithCsp,
+    FilterByElement,
+    FilterByWeight,
+    GetParentMolWithCsp,
+    StandardizeWithCsp,
 )
 
 from .canonicalize_tautomer import CanonicalizeTautomer
