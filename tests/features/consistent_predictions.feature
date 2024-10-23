@@ -4,9 +4,8 @@ Feature: Consistent predictions
   Scenario Outline: Predictions stay consistent with previous versions
     Given an input molecule specified by '<input_smiles>'
     And the input type is 'smiles'
-    And the HitDexter 3 model
     
-    When the model generates predictions for the molecule representations
+    When the HitDexter 3 model generates predictions for the molecule representations
     And the subset of the result where the input was not None is considered
     
     Then the value in column 'name' should be equal to '<name>'

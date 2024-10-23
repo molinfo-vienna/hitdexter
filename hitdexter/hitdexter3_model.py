@@ -264,15 +264,21 @@ def predict(
         produce_hitdexter3_comment((entry, entry)) for entry in zip(*mlm_predictions)
     ]
 
-    for i, assessment, mol_weight, mol_clogp in zip(range(len(mols)), comments, mol_wts, mol_logps):
+    for i, assessment, mol_weight, mol_clogp in zip(
+        range(len(mols)), comments, mol_wts, mol_logps
+    ):
         predictions = {
-            f"prediction_{j+1}" : mlm_predictions[j][i] for j in range(len(labels))
+            f"prediction_{j+1}": mlm_predictions[j][i] for j in range(len(labels))
         }
         neighbors = {
-            f"distance_to_neighbor_{j+1}" : nnm_predictions[j][i] for j in range(len(labels))
+            f"distance_to_neighbor_{j+1}": nnm_predictions[j][i]
+            for j in range(len(labels))
         }
         patterns = {
-            f"patterns_{j+1}" : [patterns[j] if patterns else None for patterns in pattern_list] for j in range(len(hitdexter_patterns))
+            f"patterns_{j+1}": [
+                patterns[j] if patterns else None for patterns in pattern_list
+            ]
+            for j in range(len(hitdexter_patterns))
         }
         yield {
             "assessment": assessment,
@@ -290,5 +296,5 @@ class HitDexter3Model(SimpleModel):
             preprocessing_steps=preprocessing_steps,
         )
 
-    def _predict_mols(self, mols: List[Mol]) -> List[dict]:
-        return list(predict(mols))
+    def _predict_mols(self, mols: List[Mol]) -> Iterator[dict]:
+        return predict(mols)

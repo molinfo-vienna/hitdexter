@@ -16,7 +16,7 @@ rdkit_requirement = ["rdkit>=2022.3.3"] if not rdkit_installed else []
 
 setup(
     name="hitdexter",
-    version="0.3.0",
+    version="0.3.1",
     maintainer="Johannes Kirchmair",
     maintainer_email="johannes.kirchmair@univie.ac.at",
     packages=find_packages(),
@@ -26,7 +26,7 @@ setup(
     + [
         "scikit_learn==0.23.2",
         "numpy==1.19.2",
-        "nerdd-module>=0.3.3",
+        "nerdd-module>=0.3.6",
         "fpsim2==0.4.0",
         "chembl_structure_pipeline==1.1.0",
         # install importlib-resources and importlib-metadata for old Python versions
