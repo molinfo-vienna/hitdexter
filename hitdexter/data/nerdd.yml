@@ -2,7 +2,7 @@ module:
   rank: 6
   name: hitdexter3
   visible_name: Hit Dexter 3
-  logo: !image logo.png
+  logo: !image logo.svg
   logo_title: Hit Dexter 3
   logo_caption: Prediction of frequent hitters
   example_smiles: C(=NN=c1ccc2ccccc2[nH]1)c1ccccn1
