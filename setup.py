@@ -22,6 +22,7 @@ setup(
     packages=find_packages(),
     url="https://github.com/molinfo-vienna/hitdexter",
     long_description=open("README.md").read(),
+    include_package_data=True,
     install_requires=rdkit_requirement
     + [
         "scikit_learn==0.23.2",
@@ -42,7 +43,7 @@ setup(
             "pytest",
             "pytest-watch",
             "pytest-cov",
-            "pytest-bdd",
+            "pytest-bdd==7.3.0",
             "hypothesis",
             "hypothesis-rdkit",
         ],
