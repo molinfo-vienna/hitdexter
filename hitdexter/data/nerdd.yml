@@ -21,18 +21,21 @@ module:
     - name: University of Hamburg
       logo: !image logo_hamburg.gif
       url: https://www.uni-hamburg.de/en
-  
-  citation: |
-    Stork, C.; Mathai, N.; Kirchmair, J. Computational prediction of frequent hitters in
-    target-based and cell-based assays. _Artificial Intelligence in the Life Sciences_
-    **2021**.  
-    [doi: 10.1016/j.ailsci.2021.100007](https://doi.org/10.1016/j.ailsci.2021.100007)
 
-  contact:
-    - name: Conrad Stork
-      email: stork@zbh.uni-hamburg.de
-    - name: Johannes Kirchmair
-      email: johannes.kirchmair@univie.ac.at
+  publications:
+    - title: Computational prediction of frequent hitters in target-based and cell-based assays
+      authors:
+        - first_name: Conrad
+          last_name: Stork
+          email: stork@zbh.uni-hamburg.de
+        - first_name: Neann
+          last_name: Mathai
+        - first_name: Johannes
+          last_name: Kirchmair
+          email: johannes.kirchmair@univie.ac.at
+      journal: Artificial Intelligence in the Life Sciences
+      year: 2021
+      doi: 10.1016/j.ailsci.2021.100007
 
   about: |
     ## Documentation of Hit Dexter 3 (coming soon)
@@ -278,112 +281,115 @@ module:
 
   result_properties:
     - name: assessment
-      verbose_name: Assessment
-      type: text
+      visible_name: Assessment
+      visible: False
+      type: string
       sortable: True
       markdown: True
     - name: mol_weight
-      verbose_name: Molecular weight (Da)
+      visible_name: Molecular weight (Da)
+      visible: False
       type: float
       palette: unknownPositiveNegative
       sortable: True
     - name: mol_clogp
-      verbose_name: clogP
+      visible_name: clogP
+      visible: False
       type: float
       palette: negativeToPositive
       sortable: True
 
     - name: prediction_1
-      verbose_name: Moderate or high promiscuity
+      visible_name: Moderate or high promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
     - name: distance_to_neighbor_1
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
     - name: prediction_2
-      verbose_name: High promiscuity
+      visible_name: High promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
     - name: distance_to_neighbor_2
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous target-based modes"
 
     - name: prediction_3
-      verbose_name: Moderate or high promiscuity
+      visible_name: Moderate or high promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
     - name: distance_to_neighbor_3
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
     - name: prediction_4
-      verbose_name: High promiscuity
+      visible_name: High promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
     - name: distance_to_neighbor_4
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous cell-based models"
 
     - name: prediction_5
-      verbose_name: Moderate or high promiscuity
+      visible_name: Moderate or high promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
     - name: distance_to_neighbor_5
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
     - name: prediction_6
-      verbose_name: High promiscuity
+      visible_name: High promiscuity
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
     - name: distance_to_neighbor_6
-      verbose_name: Distance to closest training instance
+      visible_name: Distance to closest training instance
       type: float
       palette: positiveToNegative
       sortable: True
       group: "Hit Dexter: Probability and prediction confidence of a compound being moderately or highly promiscuous extended cell-based models"
 
     - name: distance_aggregator
-      verbose_name: Distance to closest aggregator
+      visible_name: Distance to closest aggregator
       type: float
       palette: positiveToNegative
       sortable: True
       visible: False
       group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
     - name: distance_dcm
-      verbose_name: Distance to closest DCM
+      visible_name: Distance to closest DCM
       type: float
       palette: positiveToNegative
       sortable: True
       visible: False
       group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
     - name: distance_bad_actor
-      verbose_name: Distance to closest known bad actor
+      visible_name: Distance to closest known bad actor
       type: float
       palette: positiveToNegative
       sortable: True
@@ -391,59 +397,58 @@ module:
       group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
 
     - name: patterns_1
-      verbose_name: PAINS (480 patterns)
-      type: float
+      visible_name: PAINS (480 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_2
-      verbose_name: BMS (180 patterns)
-      type: float
+      visible_name: BMS (180 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_3
-      verbose_name: Dundee (105 patterns)
-      type: float
+      visible_name: Dundee (105 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_4
-      verbose_name: Glaxo (55 patterns)
-      type: float
+      visible_name: Glaxo (55 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_5
-      verbose_name: Pfizer (57 patterns)
-      type: float
+      visible_name: Pfizer (57 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_6
-      verbose_name: MLSMR (116 patterns)
-      type: float
+      visible_name: MLSMR (116 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_7
-      verbose_name: SureChEMBL (166 patterns)
-      type: float
+      visible_name: SureChEMBL (166 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
     - name: patterns_8
-      verbose_name: Chakravorty (28 patterns)
-      type: float
+      visible_name: Chakravorty (28 patterns)
+      type: string
       palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-      
