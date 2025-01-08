@@ -9,10 +9,9 @@ from hitdexter import HitDexter3Model
     ),
     target_fixture="predictions",
 )
-def predictions(representations, input_type):
+def predictions(representations):
     model = HitDexter3Model()
     return model.predict(
         representations,
-        input_type=input_type,
         output_format="record_list",
     )
