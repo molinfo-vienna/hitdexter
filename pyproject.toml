@@ -43,3 +43,8 @@ Repository = "https://github.com/molinfo-vienna/hitdexter"
 
 [project.scripts]
 hitdexter3 = "hitdexter.__main__:main"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+upload_to_vcs_release = true
