@@ -3,7 +3,9 @@ Feature: Valid predictions
 
   Scenario Outline: Predictions are valid
     Given a random seed set to <seed>
-    And a list of <num_molecules> random molecules, where <num_none> entries are None
+    And a list of <num_molecules> random molecules, where 
+        * <num_none> entries are None
+        * each mol has a weight between 180 and 900
     And the representations of the molecules in <input_type> format
 
     When the HitDexter 3 model generates predictions for the molecule representations
