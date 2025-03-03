@@ -1,0 +1,9 @@
+FPSim2==0.2.8
+importlib_metadata==8.6.1
+importlib_resources==6.5.2
+joblib==1.4.2
+nerdd_module==0.3.30
+numpy==1.19.2
+rdkit==2020.09.1
+setuptools==75.8.2
+nerdd_link==0.2.19
