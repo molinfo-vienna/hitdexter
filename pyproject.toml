@@ -44,6 +44,11 @@ Repository = "https://github.com/molinfo-vienna/hitdexter"
 [project.scripts]
 hitdexter3 = "hitdexter.__main__:main"
 
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-x --cov-report=xml --cov-report=term --cov=hitdexter"
+
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 branch = "main"
