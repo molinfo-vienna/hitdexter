@@ -1,6 +1,31 @@
 # CHANGELOG
 
 
+## v0.0.2 (2025-05-24)
+
+### Code Style
+
+* style: Use pytest-watcher instead of pytest-watch ([`232c3ff`](https://github.com/molinfo-vienna/hitdexter/commit/232c3ff76194c9e97b45f6832af2ae52991030ce))
+
+### Documentation
+
+* docs: Add installation instructions ([`7f2b074`](https://github.com/molinfo-vienna/hitdexter/commit/7f2b074a986cb108cbc39288809e21728039d63e))
+
+### Fixes
+
+* fix: Move pytest config to pyproject.toml ([`6fd4bda`](https://github.com/molinfo-vienna/hitdexter/commit/6fd4bda223e799f3f17f4b64c911c1602924873d))
+
+* fix: Use distroless base image ([`0850b6b`](https://github.com/molinfo-vienna/hitdexter/commit/0850b6b9d9f559a0bd36e52ef17e3dd22da724e1))
+
+* fix: Use hitdexter as entrypoint of Dockerfile ([`688895f`](https://github.com/molinfo-vienna/hitdexter/commit/688895fae974a417f2856c6d4224d8d593c61182))
+
+### Unknown
+
+* Merge pull request #6 from shirte/main
+
+Use hitdexter as entrypoint of Dockerfile ([`8e237f1`](https://github.com/molinfo-vienna/hitdexter/commit/8e237f1ed1044ba8c6ca4bb661f7bf2ee69bfae2))
+
+
 ## v0.0.1 (2025-03-03)
 
 ### Fixes
