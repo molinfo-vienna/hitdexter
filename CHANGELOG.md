@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.3 (2025-05-28)
+
+### Fixes
+
+* fix: arm64 compatibility ([`fc12425`](https://github.com/molinfo-vienna/hitdexter/commit/fc124255b2b9fb3f512b72d95402830cdc699fba))
+
+### Unknown
+
+* Merge pull request #7 from molinfo-vienna/arm64
+
+fix: arm64 compatibility ([`64a02f8`](https://github.com/molinfo-vienna/hitdexter/commit/64a02f8ec3cb8a2f1e2b82c77f29756c407947b4))
+
+
 ## v0.0.2 (2025-05-24)
 
 ### Code Style
