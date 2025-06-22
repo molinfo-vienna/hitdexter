@@ -4,7 +4,7 @@ from typing import Iterator, List
 import numpy as np
 from FPSim2 import FPSim2Engine
 from joblib import load
-from nerdd_module import SimpleModel
+from nerdd_module import Model
 from rdkit.Chem import AllChem, Mol, MolToSmiles
 from rdkit.Chem.Crippen import MolLogP
 from rdkit.Chem.Descriptors import MolWt
@@ -268,14 +268,14 @@ def predict(
         range(len(mols)), comments, mol_wts, mol_logps
     ):
         predictions = {
-            f"prediction_{j+1}": mlm_predictions[j][i] for j in range(len(labels))
+            f"prediction_{j + 1}": mlm_predictions[j][i] for j in range(len(labels))
         }
         neighbors = {
-            f"distance_to_neighbor_{j+1}": nnm_predictions[j][i]
+            f"distance_to_neighbor_{j + 1}": nnm_predictions[j][i]
             for j in range(len(labels))
         }
         patterns = {
-            f"patterns_{j+1}": [
+            f"patterns_{j + 1}": [
                 patterns[j] if patterns else None for patterns in pattern_list
             ]
             for j in range(len(hitdexter_patterns))
@@ -290,7 +290,7 @@ def predict(
         }
 
 
-class HitDexter3Model(SimpleModel):
+class HitDexter3Model(Model):
     def __init__(self):
         super().__init__(
             preprocessing_steps=preprocessing_steps,
