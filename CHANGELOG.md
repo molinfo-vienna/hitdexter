@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.4 (2025-07-01)
+
+### Fixes
+
+* fix: Bump versions of dependencies ([`1d38fc3`](https://github.com/molinfo-vienna/hitdexter/commit/1d38fc38efeed396c90d83c7b7655faf8eae0a4c))
+
+### Unknown
+
+* Merge pull request #8 from shirte/main
+
+fix: Bump versions of dependencies ([`7fe3c5e`](https://github.com/molinfo-vienna/hitdexter/commit/7fe3c5e515290ba9e8976bf2383fc4d7b137b1a7))
+
+
 ## v0.0.3 (2025-05-28)
 
 ### Fixes
