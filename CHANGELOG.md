@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.5 (2025-07-01)
+
+### Fixes
+
+* fix: Remove arm64 platform, because build fails ([`d6d67f2`](https://github.com/molinfo-vienna/hitdexter/commit/d6d67f232d3278abbed0738998b63b03f514cf6c))
+
+### Unknown
+
+* Merge pull request #9 from shirte/main
+
+fix: Remove arm64 platform, because build fails ([`d183253`](https://github.com/molinfo-vienna/hitdexter/commit/d183253ec4a3ea9f52855c151b21b2d250bb69a0))
+
+
 ## v0.0.4 (2025-07-01)
 
 ### Fixes
