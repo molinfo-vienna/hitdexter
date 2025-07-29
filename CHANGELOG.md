@@ -1,6 +1,29 @@
 # CHANGELOG
 
 
+## v0.0.6 (2025-07-29)
+
+### Documentation
+
+* docs: Use correct group name in license ([`edf0dc3`](https://github.com/molinfo-vienna/hitdexter/commit/edf0dc36e4697e013b3835979e486d81084e13b2))
+
+### Fixes
+
+* fix: Derive from Model class ([`904a766`](https://github.com/molinfo-vienna/hitdexter/commit/904a76697d3207c7bc05522075f3eccf977ddce8))
+
+* fix: Bump dependencies ([`99a387d`](https://github.com/molinfo-vienna/hitdexter/commit/99a387d0e2db3dad6041a4fb32aa5c4ce8d359fa))
+
+### Unknown
+
+* Merge pull request #11 from shirte/main
+
+Adapt to nerdd-module 0.3.39 ([`a7586c5`](https://github.com/molinfo-vienna/hitdexter/commit/a7586c5f18eb4da71736bad5e5f4fa3765cda57a))
+
+* Merge pull request #10 from shirte/main
+
+docs: Use correct group name in license ([`d792470`](https://github.com/molinfo-vienna/hitdexter/commit/d792470c75cb9d6d7e69c2d6e0e35d9bdbf69ed7))
+
+
 ## v0.0.5 (2025-07-01)
 
 ### Fixes
