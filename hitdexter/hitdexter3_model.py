@@ -1,4 +1,5 @@
 import sys
+from multiprocessing import Pool
 from typing import Iterator, List
 
 import numpy as np
@@ -19,6 +20,20 @@ else:
     from importlib.resources import files
 
 __all__ = ["HitDexter3Model"]
+
+# To estimate the optimal number of cores, you can use:
+#   time hitdexter3 your_input.smi
+# and vary the number of cores in the script below.
+#
+# My results for an input containing 200 molecules:
+#  1 core:  0M35s (real), 0m47s (user)
+#  4 cores: 0m32s (real), 0m49s (user)
+#  8 cores: 0m31s (real), 0m48s (user)
+#
+# Although there is almost no benefit from using 4 cores (or more), I choose num_cores = 4,
+# because the ML models are pre-configured to use 4 cores.
+
+num_cores = 8
 
 labels = [
     "TARGET_HN",
@@ -246,48 +261,53 @@ def get_confidence_for_similarity(similarity):
 def predict(
     mols,
 ) -> Iterator[dict]:
-    # calculate features
-    mols_h = [get_mol_with_added_hs(m) for m in mols]
-    morgans = [get_morgan2_fp(m) for m in mols]
-    mol_wts = [get_rounded_molWt(m) for m in mols_h]
-    mol_logps = [get_rounded_molLogP(m) for m in mols_h]
+    with Pool(num_cores) as pool:
+        # calculate features
+        mols_h = pool.map(get_mol_with_added_hs, mols)
+        morgans = pool.map(get_morgan2_fp, mols)
+        mol_wts = pool.map(get_rounded_molWt, mols_h)
+        mol_logps = pool.map(get_rounded_molLogP, mols_h)
 
-    mlm_predictions = [
-        get_machine_learning_prediction(mlmodel, morgans) for mlmodel in mlm
-    ]
+        # do not parallelize this, sklearn models already use multiple cores
+        mlm_predictions = [
+            get_machine_learning_prediction(mlmodel, morgans) for mlmodel in mlm
+        ]
 
-    nnm_predictions = [get_nearest_neighbors_scores(nnmodel, mols) for nnmodel in nnm]
+        nnm_predictions = [
+            get_nearest_neighbors_scores(nnmodel, mols) for nnmodel in nnm
+        ]
 
-    pattern_list = [get_matching_hitdexter3_patterns(m) for m in mols_h]
+        pattern_list = pool.map(get_matching_hitdexter3_patterns, mols_h)
 
-    comments = [
-        produce_hitdexter3_comment((entry, entry)) for entry in zip(*mlm_predictions)
-    ]
+        comments = [
+            produce_hitdexter3_comment((entry, entry))
+            for entry in zip(*mlm_predictions)
+        ]
 
-    for i, assessment, mol_weight, mol_clogp in zip(
-        range(len(mols)), comments, mol_wts, mol_logps
-    ):
-        predictions = {
-            f"prediction_{j + 1}": mlm_predictions[j][i] for j in range(len(labels))
-        }
-        neighbors = {
-            f"distance_to_neighbor_{j + 1}": nnm_predictions[j][i]
-            for j in range(len(labels))
-        }
-        patterns = {
-            f"patterns_{j + 1}": [
-                patterns[j] if patterns else None for patterns in pattern_list
-            ]
-            for j in range(len(hitdexter_patterns))
-        }
-        yield {
-            "assessment": assessment,
-            "mol_weight": mol_weight,
-            "mol_clogp": mol_clogp,
-            **predictions,
-            **neighbors,
-            **patterns,
-        }
+        for i, assessment, mol_weight, mol_clogp in zip(
+            range(len(mols)), comments, mol_wts, mol_logps
+        ):
+            predictions = {
+                f"prediction_{j + 1}": mlm_predictions[j][i] for j in range(len(labels))
+            }
+            neighbors = {
+                f"distance_to_neighbor_{j + 1}": nnm_predictions[j][i]
+                for j in range(len(labels))
+            }
+            patterns = {
+                f"patterns_{j + 1}": [
+                    patterns[j] if patterns else None for patterns in pattern_list
+                ]
+                for j in range(len(hitdexter_patterns))
+            }
+            yield {
+                "assessment": assessment,
+                "mol_weight": mol_weight,
+                "mol_clogp": mol_clogp,
+                **predictions,
+                **neighbors,
+                **patterns,
+            }
 
 
 class HitDexter3Model(Model):
