@@ -33,7 +33,7 @@ __all__ = ["HitDexter3Model"]
 # Although there is almost no benefit from using 4 cores (or more), I choose num_cores = 4,
 # because the ML models are pre-configured to use 4 cores.
 
-num_cores = 8
+num_cores = 4
 
 labels = [
     "TARGET_HN",
