@@ -396,59 +396,51 @@ module:
       visible: False
       group: "Similarity of a compound to known aggregators, dark chemical matter (DCM) and known bad actors"
 
-    - name: patterns_1
+    - name: pains
       visible_name: PAINS (480 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_2
+    - name: bms
       visible_name: BMS (180 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_3
+    - name: dundee
       visible_name: Dundee (105 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_4
+    - name: glaxo
       visible_name: Glaxo (55 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_5
+    - name: lint
       visible_name: Pfizer (57 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_6
+    - name: mlsmr
       visible_name: MLSMR (116 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_7
+    - name: sure_chembl
       visible_name: SureChEMBL (166 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
-    - name: patterns_8
+    - name: chakravorty
       visible_name: Chakravorty (28 patterns)
       type: string
-      palette: nuisancePatterns
       sortable: True
       visible: False
       group: "Number of undesired functional groups present in a compound"
