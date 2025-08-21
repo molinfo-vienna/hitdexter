@@ -27,14 +27,14 @@ Feature: Valid predictions
             distance_to_neighbor_5
             prediction_6
             distance_to_neighbor_6
-            patterns_1
-            patterns_2
-            patterns_3
-            patterns_4
-            patterns_5
-            patterns_6
-            patterns_7
-            patterns_8
+            pains
+            bms
+            dundee
+            glaxo
+            lint
+            mlsmr
+            sure_chembl
+            chakravorty
     And the value in column 'assessment' should have type 'str'
     And the value in column 'assessment' should have length greater than 0
     And the value in column 'mol_weight' should have type 'float'
@@ -52,14 +52,14 @@ Feature: Valid predictions
     And the value in column 'distance_to_neighbor_5' should be between 0 and 1
     And the value in column 'prediction_6' should be between 0 and 1
     And the value in column 'distance_to_neighbor_6' should be between 0 and 1
-    And the value in column 'patterns_1' should have type 'list'
-    And the value in column 'patterns_2' should have type 'list'
-    And the value in column 'patterns_3' should have type 'list'
-    And the value in column 'patterns_4' should have type 'list'
-    And the value in column 'patterns_5' should have type 'list'
-    And the value in column 'patterns_6' should have type 'list'
-    And the value in column 'patterns_7' should have type 'list'
-    And the value in column 'patterns_8' should have type 'list'
+    And the value in column 'pains' should have type 'list'
+    And the value in column 'bms' should have type 'list'
+    And the value in column 'dundee' should have type 'list'
+    And the value in column 'glaxo' should have type 'list'
+    And the value in column 'lint' should have type 'list'
+    And the value in column 'mlsmr' should have type 'list'
+    And the value in column 'sure_chembl' should have type 'list'
+    And the value in column 'chakravorty' should have type 'list'
 
 
   Examples:
