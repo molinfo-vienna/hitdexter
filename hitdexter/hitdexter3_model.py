@@ -277,15 +277,15 @@ def predict(
             get_nearest_neighbors_scores(nnmodel, mols) for nnmodel in nnm
         ]
 
-        pattern_list = pool.map(get_matching_hitdexter3_patterns, mols_h)
+        pattern_lists_per_mol = pool.map(get_matching_hitdexter3_patterns, mols_h)
 
         comments = [
             produce_hitdexter3_comment((entry, entry))
             for entry in zip(*mlm_predictions)
         ]
 
-        for i, assessment, mol_weight, mol_clogp in zip(
-            range(len(mols)), comments, mol_wts, mol_logps
+        for i, assessment, mol_weight, mol_clogp, pattern_lists in zip(
+            range(len(mols)), comments, mol_wts, mol_logps, pattern_lists_per_mol
         ):
             predictions = {
                 f"prediction_{j + 1}": mlm_predictions[j][i] for j in range(len(labels))
@@ -295,12 +295,10 @@ def predict(
                 for j in range(len(labels))
             }
             patterns = {
-                f"patterns_{j + 1}": [
-                    patterns[j] if patterns else None for patterns in pattern_list
-                ]
-                for j in range(len(hitdexter_patterns))
+                k: pattern_list
+                for k, pattern_list in zip(hitdexter_patterns.keys(), pattern_lists)
             }
-            yield {
+            result = {
                 "assessment": assessment,
                 "mol_weight": mol_weight,
                 "mol_clogp": mol_clogp,
@@ -308,6 +306,8 @@ def predict(
                 **neighbors,
                 **patterns,
             }
+
+            yield result
 
 
 class HitDexter3Model(Model):
