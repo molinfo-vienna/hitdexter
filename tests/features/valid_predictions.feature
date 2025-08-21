@@ -9,7 +9,7 @@ Feature: Valid predictions
     And the representations of the molecules in <input_type> format
 
     When the HitDexter 3 model generates predictions for the molecule representations
-    And the subset of the result where the input was not None is considered
+    And the subset of the result where the preprocessed mol was not None is considered
 
     Then the result should contain the columns:
             assessment
@@ -52,14 +52,14 @@ Feature: Valid predictions
     And the value in column 'distance_to_neighbor_5' should be between 0 and 1
     And the value in column 'prediction_6' should be between 0 and 1
     And the value in column 'distance_to_neighbor_6' should be between 0 and 1
-    And the value in column 'pains' should have type 'list'
-    And the value in column 'bms' should have type 'list'
-    And the value in column 'dundee' should have type 'list'
-    And the value in column 'glaxo' should have type 'list'
-    And the value in column 'lint' should have type 'list'
-    And the value in column 'mlsmr' should have type 'list'
-    And the value in column 'sure_chembl' should have type 'list'
-    And the value in column 'chakravorty' should have type 'list'
+    And the value in column 'pains' should have type 'str'
+    And the value in column 'bms' should have type 'str'
+    And the value in column 'dundee' should have type 'str'
+    And the value in column 'glaxo' should have type 'str'
+    And the value in column 'lint' should have type 'str'
+    And the value in column 'mlsmr' should have type 'str'
+    And the value in column 'sure_chembl' should have type 'str'
+    And the value in column 'chakravorty' should have type 'str'
 
 
   Examples:
