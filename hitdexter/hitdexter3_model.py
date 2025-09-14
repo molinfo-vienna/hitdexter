@@ -1,5 +1,5 @@
 import sys
-from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
 from typing import Iterator, List
 
 import numpy as np
@@ -261,12 +261,13 @@ def get_confidence_for_similarity(similarity):
 def predict(
     mols,
 ) -> Iterator[dict]:
-    with Pool(num_cores) as pool:
+    # avoid multiprocessing.Pool here, because it doesn't handle SIGTERM correctly
+    with ProcessPoolExecutor(num_cores) as pool:
         # calculate features
-        mols_h = pool.map(get_mol_with_added_hs, mols)
-        morgans = pool.map(get_morgan2_fp, mols)
-        mol_wts = pool.map(get_rounded_molWt, mols_h)
-        mol_logps = pool.map(get_rounded_molLogP, mols_h)
+        mols_h = list(pool.map(get_mol_with_added_hs, mols))
+        morgans = list(pool.map(get_morgan2_fp, mols))
+        mol_wts = list(pool.map(get_rounded_molWt, mols_h))
+        mol_logps = list(pool.map(get_rounded_molLogP, mols_h))
 
         # do not parallelize this, sklearn models already use multiple cores
         mlm_predictions = [
@@ -277,7 +278,7 @@ def predict(
             get_nearest_neighbors_scores(nnmodel, mols) for nnmodel in nnm
         ]
 
-        pattern_lists_per_mol = pool.map(get_matching_hitdexter3_patterns, mols_h)
+        pattern_lists_per_mol = list(pool.map(get_matching_hitdexter3_patterns, mols_h))
 
         comments = [
             produce_hitdexter3_comment((entry, entry))
