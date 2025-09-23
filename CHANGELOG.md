@@ -1,6 +1,33 @@
 # CHANGELOG
 
 
+## v0.0.7 (2025-09-23)
+
+### Fixes
+
+* fix: Use correct column names ([`b7a10ca`](https://github.com/molinfo-vienna/hitdexter/commit/b7a10ca7c92e8b91520b498f7a5baaae38b25798))
+
+* fix: Improve readability of pattern aggregation code ([`d2e72e2`](https://github.com/molinfo-vienna/hitdexter/commit/d2e72e2d20bc76a3c76ce9f5639fb86bec4c7027))
+
+* fix: Decrease number of cores to 4 ([`1da29d3`](https://github.com/molinfo-vienna/hitdexter/commit/1da29d3f6a442cd9b8db756f812bd7a88e0aad00))
+
+* fix: Bump dependencies ([`3501fc1`](https://github.com/molinfo-vienna/hitdexter/commit/3501fc19f4965fec4c55fd3cf0bb5e1d2482670d))
+
+* fix: Use multiple cores in prediction ([`b01a056`](https://github.com/molinfo-vienna/hitdexter/commit/b01a05612b0e53535ffa75c85022669578f1a15c))
+
+### Testing
+
+* test: Assume pattern columns to have str type ([`a9310ba`](https://github.com/molinfo-vienna/hitdexter/commit/a9310ba89831ff3e3bfa2bc713322f1b4b97aeff))
+
+* test: Adapt tests ([`7230929`](https://github.com/molinfo-vienna/hitdexter/commit/72309299144eee5e1f09fdb4081ef79feab2f9e7))
+
+### Unknown
+
+* Merge pull request #12 from shirte/main
+
+Use multiple cores in prediction ([`ba6e422`](https://github.com/molinfo-vienna/hitdexter/commit/ba6e4225ea547536f24866c6147146d008441819))
+
+
 ## v0.0.6 (2025-07-29)
 
 ### Documentation
