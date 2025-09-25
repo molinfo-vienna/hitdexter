@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.8 (2025-09-25)
+
+### Fixes
+
+* fix: Bump dependencies ([`85e4941`](https://github.com/molinfo-vienna/hitdexter/commit/85e4941fcbd86691df02c623f36d704334360726))
+
+* fix: Use curl instead of wget ([`5f95b16`](https://github.com/molinfo-vienna/hitdexter/commit/5f95b16763d7a9918e169d4bc5db6b977e02a9c3))
+
+### Unknown
+
+* Merge pull request #13 from shirte/main
+
+Update dependencies ([`99d9767`](https://github.com/molinfo-vienna/hitdexter/commit/99d97679dd071b97c31b441b2ab45676fad1a4f1))
+
+
 ## v0.0.7 (2025-09-23)
 
 ### Fixes
