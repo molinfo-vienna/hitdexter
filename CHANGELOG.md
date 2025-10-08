@@ -1,6 +1,25 @@
 # CHANGELOG
 
 
+## v0.0.9 (2025-10-08)
+
+### Documentation
+
+* docs: Use curl instead of wget in readme ([`47ed14e`](https://github.com/molinfo-vienna/hitdexter/commit/47ed14e2c02914de46fa0b24e19da85ce35eee98))
+
+### Fixes
+
+* fix: Use ProcessPoolExecutor instead of multiprocessing.Pool ([`0e41043`](https://github.com/molinfo-vienna/hitdexter/commit/0e41043a4d2fbb1551a0d0c4412560f258ed31e1))
+
+* fix: Update dependencies ([`5461572`](https://github.com/molinfo-vienna/hitdexter/commit/54615722a065258af60d8140f1a2c9c437d60716))
+
+### Unknown
+
+* Merge pull request #14 from shirte/main
+
+Use ProcessPoolExecutor instead of multiprocessing.Pool ([`818a31b`](https://github.com/molinfo-vienna/hitdexter/commit/818a31b39bfed49ec76aa2c3bd8b2fd5a9e430a5))
+
+
 ## v0.0.8 (2025-09-25)
 
 ### Fixes
