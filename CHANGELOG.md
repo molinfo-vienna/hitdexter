@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.11 (2025-10-09)
+
+### Fixes
+
+* fix: Update dependencies ([`b669c3d`](https://github.com/molinfo-vienna/hitdexter/commit/b669c3d25947dc9615cedeb93fad526695ac6f18))
+
+### Unknown
+
+* Merge pull request #16 from shirte/main
+
+Update dependencies ([`608feaf`](https://github.com/molinfo-vienna/hitdexter/commit/608feaf8e79b5d833f8e7ecc06b2ca6c7bcacd08))
+
+
 ## v0.0.10 (2025-10-09)
 
 ### Fixes
