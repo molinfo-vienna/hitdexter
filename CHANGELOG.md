@@ -1,6 +1,21 @@
 # CHANGELOG
 
 
+## v0.0.13 (2026-01-26)
+
+### Fixes
+
+* fix: Compress logo ([`9832a2d`](https://github.com/molinfo-vienna/hitdexter/commit/9832a2d81ba28455928c83d43ec21398d56bf18b))
+
+* fix: Add license statement ([`299033f`](https://github.com/molinfo-vienna/hitdexter/commit/299033f8f785f2ccef911d85e0f84b3a554181ed))
+
+### Unknown
+
+* Merge pull request #18 from shirte/main
+
+Add license statement ([`a05b676`](https://github.com/molinfo-vienna/hitdexter/commit/a05b6767348536ad8df507539ff087f6c18e412d))
+
+
 ## v0.0.12 (2026-01-26)
 
 ### Fixes
