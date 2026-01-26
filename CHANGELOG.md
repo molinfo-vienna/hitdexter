@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.12 (2026-01-26)
+
+### Fixes
+
+* fix: Update nerdd-link ([`907ee99`](https://github.com/molinfo-vienna/hitdexter/commit/907ee992cbd3c5c6731bb259ba57e2f3dfea192f))
+
+### Unknown
+
+* Merge pull request #17 from shirte/main
+
+Update nerdd-link ([`af11e5f`](https://github.com/molinfo-vienna/hitdexter/commit/af11e5ff7c918d8544351ea4740207b69444ab74))
+
+
 ## v0.0.11 (2025-10-09)
 
 ### Fixes
