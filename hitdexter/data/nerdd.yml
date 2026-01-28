@@ -25,19 +25,7 @@ module:
       url: https://www.uni-hamburg.de/en
 
   publications:
-    - title: Computational prediction of frequent hitters in target-based and cell-based assays
-      authors:
-        - first_name: Conrad
-          last_name: Stork
-          email: stork@zbh.uni-hamburg.de
-        - first_name: Neann
-          last_name: Mathai
-        - first_name: Johannes
-          last_name: Kirchmair
-          email: johannes.kirchmair@univie.ac.at
-      journal: Artificial Intelligence in the Life Sciences
-      year: 2021
-      doi: 10.1016/j.ailsci.2021.100007
+    - doi: 10.1016/j.ailsci.2021.100007
 
   about: |
     ## Documentation of Hit Dexter 3 (coming soon)
