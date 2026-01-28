@@ -1,6 +1,23 @@
 # CHANGELOG
 
 
+## v0.0.14 (2026-01-28)
+
+### Fixes
+
+* fix: Update nerdd-module ([`6de95b2`](https://github.com/molinfo-vienna/hitdexter/commit/6de95b2a756d1e4d52dba7ef18f23abc549db934))
+
+* fix: Provide only DOI for publication ([`1b2365b`](https://github.com/molinfo-vienna/hitdexter/commit/1b2365b15dcc2ecf32679c207c0e81a891cb93c5))
+
+* fix: Update nerdd-link ([`dd25e46`](https://github.com/molinfo-vienna/hitdexter/commit/dd25e46680491fd03a4282892b8a10d570d142e9))
+
+### Unknown
+
+* Merge pull request #19 from shirte/main
+
+Update nerdd dependencies ([`365ab1b`](https://github.com/molinfo-vienna/hitdexter/commit/365ab1b682fa630313f48f81daced64744d8e149))
+
+
 ## v0.0.13 (2026-01-26)
 
 ### Fixes
