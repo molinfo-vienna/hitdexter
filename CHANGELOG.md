@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.0.15 (2026-08-02)
+
+### Fixes
+
+* fix: Update nerdd dependencies ([`eae34d3`](https://github.com/molinfo-vienna/hitdexter/commit/eae34d3d18a91c63d910b7af107b66a26b192ed9))
+
+### Unknown
+
+* Merge pull request #20 from shirte/main
+
+Update nerdd dependencies ([`4006820`](https://github.com/molinfo-vienna/hitdexter/commit/400682025b76c62ebcf47935ccebbf151da6d73c))
+
+
 ## v0.0.14 (2026-01-28)
 
 ### Fixes
